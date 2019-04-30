@@ -1,10 +1,14 @@
 const UserService = require("../services/UserService");
 
-module.exports = {
+class UserController {
+  constructor() {
+    this.userService = UserService;
+  }
+
   async store(req, res, next) {
     try {
       const { body } = req;
-      const user = await UserService.store(body);
+      const user = await this.userService.store(body);
 
       if (!user) {
         return res
@@ -18,14 +22,14 @@ module.exports = {
     } catch (err) {
       return next(err);
     }
-  },
+  }
 
   async update(req, res, next) {
     try {
       const { body } = req;
       const { id } = req.params;
 
-      const user = await UserService.update({ ...body, id });
+      const user = await this.userService.update({ ...body, id });
 
       if (!user) {
         return res.status(400).json({ message: "No user found" });
@@ -37,13 +41,13 @@ module.exports = {
     } catch (err) {
       return next(err);
     }
-  },
+  }
 
   async destroy(req, res, next) {
     try {
       const { id } = req.params;
 
-      const user = await UserService.destroy(id);
+      const user = await this.userService.destroy(id);
 
       if (!user) {
         return res.status(400).json({ message: "No user found" });
@@ -55,13 +59,13 @@ module.exports = {
     } catch (err) {
       return next(err);
     }
-  },
+  }
 
   async get(req, res, next) {
     try {
       const { id } = req.params;
 
-      const user = await UserService.get(id);
+      const user = await this.userService.get(id);
 
       if (!user) {
         return res.status(400).json({ message: "No user found" });
@@ -72,4 +76,6 @@ module.exports = {
       return next(err);
     }
   }
-};
+}
+
+module.exports = new UserController();
