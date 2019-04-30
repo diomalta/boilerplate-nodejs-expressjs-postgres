@@ -11,6 +11,11 @@
     "pretest": "rm -f __tests__/database.sqlite && cross-env NODE_ENV=test sequelize db:migrate",
     "test": "cross-env NODE_ENV=test jest"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test"
+    }
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -25,6 +30,7 @@
   "devDependencies": {
     "factory-girl": "^5.0.4",
     "faker": "^4.1.0",
+    "husky": "^2.1.0",
     "jest": "^24.7.1",
     "nodemon": "^1.18.11",
     "sequelize-cli": "^5.4.0",
