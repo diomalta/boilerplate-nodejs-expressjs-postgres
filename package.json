@@ -8,9 +8,8 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js --ignore __tests__",
-    "pretest": "cross-env NODE_ENV=test sequelize db:migrate",
-    "test": "cross-env NODE_ENV=test jest",
-    "postest": "cross-env NODE_ENV=test sequelize db:migrate:undo:all"
+    "pretest": "rm -f __tests__/database.sqlite && cross-env NODE_ENV=test sequelize db:migrate",
+    "test": "cross-env NODE_ENV=test jest"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -11,7 +11,7 @@ class AuthService {
 
     if (!user) {
       return {
-        status: 401,
+        status: 400,
         message: "User not found"
       };
     }
@@ -25,7 +25,7 @@ class AuthService {
 
     return {
       user,
-      status: 200,
+      status: 201,
       token: user.generateToken()
     };
   }

@@ -33,10 +33,6 @@ class UserService {
     return this.user.findByPk(id);
   }
 
-  getAll() {
-    return this.user.findAll();
-  }
-
   async destroy(id) {
     const user = await this.get(id);
 
