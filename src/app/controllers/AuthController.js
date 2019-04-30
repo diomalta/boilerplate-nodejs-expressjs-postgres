@@ -1,5 +1,5 @@
 const AuthService = require("../services/AuthService");
-const UserService = require("../services/UserService");
+const UserService = require("../services/UserService")
 
 class AuthController {
   async store(req, res, next) {
