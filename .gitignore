@@ -1,4 +1,3 @@
 node_modules
-
-__tests__/coverage
-__tests__/database.sqlite
+/__tests__/coverage
+/__tests__/database.sqlite
