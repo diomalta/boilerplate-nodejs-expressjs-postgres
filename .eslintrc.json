@@ -15,6 +15,28 @@
     "ecmaVersion": 2018
   },
   "rules": {
-    "linebreak-style": ["error", "windows"]
-  }
+    "linebreak-style": ["off", "windows"],
+    "no-tabs": "warn",
+    "security/detect-object-injection": 0
+  },
+  "overrides": [
+    {
+      "files": "**/*.test.js",
+      "rules": {
+        "node/no-unpublished-require": 0
+      }
+    },
+    {
+      "files": "src/config/*",
+      "rules": {
+        "security/detect-non-literal-fs-filename": 0
+      }
+    },
+    {
+      "files": "src/services/*",
+      "rules": {
+        "security/detect-non-literal-fs-filename": 0
+      }
+    }
+  ]
 }
