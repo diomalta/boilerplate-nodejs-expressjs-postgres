@@ -10,11 +10,11 @@
     "dev": "nodemon src/server.js --ignore __tests__",
     "pretest": "rm -f __tests__/database.sqlite && cross-env NODE_ENV=test sequelize db:migrate",
     "test": "cross-env NODE_ENV=test jest",
-    "lint": "./node_modules/.bin/eslint src/*.js"
+    "lint": "./node_modules/.bin/eslint src/**/**.js"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn test"
+      "pre-commit": "yarn test && yarn lint"
     }
   },
   "dependencies": {

@@ -1,9 +1,9 @@
-const faker = require("faker");
+const faker = require('faker')
 
 module.exports = {
   up: queryInterface =>
     queryInterface.bulkInsert(
-      "users",
+      'users',
       [
         {
           name: faker.name.findName(),
@@ -16,5 +16,5 @@ module.exports = {
       {}
     ),
 
-  down: queryInterface => queryInterface.bulkDelete("users", null, {})
-};
+  down: queryInterface => queryInterface.bulkDelete('users', null, {})
+}

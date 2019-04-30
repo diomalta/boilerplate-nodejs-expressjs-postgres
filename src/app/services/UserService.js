@@ -1,47 +1,47 @@
-const { User } = require("../models");
+const { User } = require('../models')
 
 class UserService {
-  constructor() {
-    this.user = User;
+  constructor () {
+    this.user = User
   }
 
-  async store(body) {
-    const user = await this.check(body.email);
+  async store (body) {
+    const user = await this.check(body.email)
 
     if (!user) {
-      return this.user.create({ ...body });
+      return this.user.create({ ...body })
     }
 
-    return false;
+    return false
   }
 
-  async update(body) {
-    const user = await this.get(body.id);
+  async update (body) {
+    const user = await this.get(body.id)
 
     if (!user) {
-      return false;
+      return false
     }
 
-    return user.update({ ...body });
+    return user.update({ ...body })
   }
 
-  check(email) {
-    return this.user.findOne({ where: { email } });
+  check (email) {
+    return this.user.findOne({ where: { email } })
   }
 
-  get(id) {
-    return this.user.findByPk(id);
+  get (id) {
+    return this.user.findByPk(id)
   }
 
-  async destroy(id) {
-    const user = await this.get(id);
+  async destroy (id) {
+    const user = await this.get(id)
 
     if (!user) {
-      return false;
+      return false
     }
 
-    return user.destroy();
+    return user.destroy()
   }
 }
 
-module.exports = new UserService();
+module.exports = new UserService()
