@@ -61,13 +61,16 @@ class UserController {
     try {
       const { id } = req.params
 
-      const user = await UserService.get(id)
+      const response = await UserService.get(id)
 
-      if (!user) {
-        return res.status(400).json({ message: 'No user found' })
+      if (response.status !== 200) {
+        const e = new ErrorService(req, response)
+        return next(e.get())
       }
 
-      return res.status(200).json({ user, message: 'User successfully found' })
+      return res
+        .status(200)
+        .json({ user: response.user, message: response.menssage })
     } catch (err) {
       return next(err)
     }

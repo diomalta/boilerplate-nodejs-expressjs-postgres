@@ -93,7 +93,7 @@ describe('User > UserController.js', () => {
     it('No user found', async () => {
       const response = await request(app).get('/api/4000000')
 
-      expect(response.body.user.status).toBe(400)
+      expect(response.status).toBe(400)
     })
   })
 
