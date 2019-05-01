@@ -27,8 +27,8 @@ const errorMiddleware = (err, req, res, next) => {
     } - ip: ${req.ip} - error: ${JSON.stringify(err, null, 2)}`
   )
 
-  if (!err.isOperational && config.env !== 'test') {
-    // return process.exit(1)
+  if (!err.isOperational && config.env.local !== 'test') {
+    return process.exit(1)
   }
 
   switch (err.errorType) {

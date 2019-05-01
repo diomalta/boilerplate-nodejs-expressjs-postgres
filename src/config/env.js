@@ -7,6 +7,7 @@ dotenv.config({
 module.exports = {
   appSecret: process.env.APP_SECRET,
   portServer: process.env.PORT_SERVER,
+  local: process.env.NODE_ENV,
   database: {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,

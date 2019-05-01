@@ -4808,11 +4808,6 @@ rimraf@2.6.3, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2:
   dependencies:
     glob "^7.1.3"
 
-rotating-file-stream@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/rotating-file-stream/-/rotating-file-stream-1.4.1.tgz#e378ff23b91e7960792cdc5cdeb121fc59d36003"
-  integrity sha512-80lz0OFYQ5p2ncW5RFq1TgxZmoNGlIhhDWhUQE9XNGYkrOH3fENdA1kMLaN0C7L9igRmCgnFd3NWgRRXVnV5tA==
-
 rsvp@^4.8.4:
   version "4.8.4"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.4.tgz#b50e6b34583f3dd89329a2f23a8a2be072845911"
