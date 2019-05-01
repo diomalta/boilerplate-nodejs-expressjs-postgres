@@ -1,13 +1,13 @@
-require('./env')
+const env = require('./env')
 
 module.exports = {
-  host: process.env.DB_HOST,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_DATABASE,
-  dialect: process.env.DB_DIALECT || 'postgres',
-  port: process.env.DB_PORT,
-  storage: './__tests__/database.sqlite',
+  host: env.database.host,
+  username: env.database.user,
+  password: env.database.pass,
+  database: env.database.db,
+  dialect: env.database.dialect,
+  port: env.database.port,
+  storage: env.test.storage,
   logging: false,
   define: {
     timestamps: true,
