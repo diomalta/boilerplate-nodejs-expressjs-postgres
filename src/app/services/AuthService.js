@@ -11,15 +11,17 @@ class AuthService {
 
     if (!user) {
       return {
+        type: 'userNotFound',
         status: 400,
-        message: 'User not found'
+        describe: 'User not found'
       }
     }
 
     if (!(await user.checkPassword(password))) {
       return {
+        type: 'incorretPassword',
         status: 401,
-        message: 'Incorrect password'
+        describe: 'Incorrect password'
       }
     }
 

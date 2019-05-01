@@ -1,4 +1,5 @@
 const AuthService = require('../services/AuthService')
+const ErrorService = require('../services/ErrorService')
 
 class AuthController {
   async store (req, res, next) {
@@ -6,7 +7,8 @@ class AuthController {
       const response = await AuthService.store(req.body)
 
       if (response.status !== 201) {
-        return res.status(response.status).json({ message: response.message })
+        const e = new ErrorService(req, response)
+        return next(e.get())
       }
 
       return res.status(201).json({ ...response })

@@ -1,20 +1,20 @@
 const UserService = require('../services/UserService')
+const ErrorService = require('../services/ErrorService')
 
 class UserController {
   async store (req, res, next) {
     try {
       const { body } = req
-      const user = await UserService.store(body)
+      const response = await UserService.store(body)
 
-      if (!user) {
-        return res
-          .status(400)
-          .json({ message: 'Already exist a user with email' })
+      if (response.status !== 201) {
+        const e = new ErrorService(req, response)
+        return next(e.get())
       }
 
       return res
         .status(201)
-        .json({ user, message: 'User registered with success' })
+        .json({ user: response.user, message: response.describe })
     } catch (err) {
       return next(err)
     }
@@ -25,15 +25,16 @@ class UserController {
       const { id } = req.params
       const { body } = req
 
-      const user = await UserService.update({ ...body, id })
+      const response = await UserService.update({ ...body, id })
 
-      if (!user) {
-        return res.status(400).json({ message: 'No user found' })
+      if (response.status !== 200) {
+        const e = new ErrorService(req, response)
+        return next(e.get())
       }
 
       return res
-        .status(200)
-        .json({ user, message: 'User updated with success' })
+        .status(response.status)
+        .json({ user: response.user, message: response.describe })
     } catch (err) {
       return next(err)
     }
@@ -43,15 +44,14 @@ class UserController {
     try {
       const { id } = req.params
 
-      const user = await UserService.destroy(id)
+      const response = await UserService.destroy(id)
 
-      if (!user) {
-        return res.status(400).json({ message: 'No user found' })
+      if (response.status !== 200) {
+        const e = new ErrorService(req, response)
+        return next(e.get())
       }
 
-      return res
-        .status(200)
-        .json({ user, message: 'User deleted with success' })
+      return res.status(response.status).json({ message: response.describe })
     } catch (err) {
       return next(err)
     }
