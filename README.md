@@ -1,8 +1,8 @@
-Node + Express + Sequelize Quick Starter project
+🔰 Node + Express + Sequelize Quick Starter project 
 ---
 The goal of this project is to provide a starting base for an api node with postgres.
 
-Features:
+📰Features:
 + Postgres user store/update/get/delete and login
 + Automatic restarts _(when server code changes)_
 + Logs server when requests
