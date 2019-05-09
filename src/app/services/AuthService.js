@@ -1,8 +1,11 @@
 const { User } = require('../models')
 
+const HTTP = require('../../constants/http')
+const Response = require('../../constants/response')
+
 class AuthService {
-  constructor () {
-    this.user = User
+  constructor (user) {
+    this.user = user
   }
 
   async store (body) {
@@ -10,27 +13,19 @@ class AuthService {
     const user = await this.user.findOne({ where: { email } })
 
     if (!user) {
-      return {
-        type: 'userNotFound',
-        status: 400,
-        describe: 'User not found'
-      }
+      return Response.userNotFound
     }
 
     if (!(await user.checkPassword(password))) {
-      return {
-        type: 'incorretPassword',
-        status: 401,
-        describe: 'Incorrect password'
-      }
+      return Response.incorretPassword
     }
 
     return {
       user,
-      status: 201,
+      status: HTTP.CREATED,
       token: user.generateToken()
     }
   }
 }
 
-module.exports = new AuthService()
+module.exports = new AuthService(User)
