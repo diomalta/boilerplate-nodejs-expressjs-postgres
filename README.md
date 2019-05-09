@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 ## Node + Express + Sequelize Quick Starter project
 
 The goal of this project is to provide a starting base for an api node with postgres.
@@ -32,7 +30,6 @@ The goal of this project is to provide a starting base for an api node with post
 - Eslint configured with Google Standard
 - Jest + Supertest for create tests unit and of integration for app
 - `async/await` support
-  > > > > > > > dd1bb4700dc462df0ed7a772a9140c139dcdf3e4
 
 ## How to run
 
