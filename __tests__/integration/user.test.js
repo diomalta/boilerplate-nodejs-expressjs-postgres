@@ -1,9 +1,11 @@
-const request = require('supertest')
 const faker = require('faker')
+const request = require('supertest')
 
 const app = require('../../src/app')
 const factory = require('../utils/factories')
 const truncate = require('../utils/truncate')
+
+const HTTP = require('../../src/constants/http')
 
 describe('User > UserController.js', () => {
   beforeEach(async () => {
@@ -20,19 +22,8 @@ describe('User > UserController.js', () => {
           password: faker.internet.password()
         })
 
-      expect(response.status).toBe(201)
+      expect(response.status).toBe(HTTP.CREATED)
     })
-
-    // it('WHERE parameter email has invalid undefined value', async () => {
-    //   const response = await request(app)
-    //     .post('/api')
-    //     .send({
-    //       name: faker.name.findName(),
-    //       password: faker.internet.password()
-    //     })
-
-    //   expect(response.status).toBe(500)
-    // })
 
     it('Already exist a user with email', async () => {
       const user = await factory.create('User', {
@@ -47,7 +38,7 @@ describe('User > UserController.js', () => {
           password: faker.internet.password()
         })
 
-      expect(response.status).toBe(400)
+      expect(response.status).toBe(HTTP.BAD_REQUEST)
     })
   })
 
@@ -64,7 +55,7 @@ describe('User > UserController.js', () => {
           password: faker.internet.password()
         })
 
-      expect(response.status).toBe(200)
+      expect(response.status).toBe(HTTP.OK)
     })
 
     it('No user found', async () => {
@@ -75,7 +66,7 @@ describe('User > UserController.js', () => {
           password: faker.internet.password()
         })
 
-      expect(response.status).toBe(400)
+      expect(response.status).toBe(HTTP.BAD_REQUEST)
     })
   })
 
@@ -87,13 +78,13 @@ describe('User > UserController.js', () => {
 
       const response = await request(app).get(`/api/${user.id}`)
 
-      expect(response.status).toBe(200)
+      expect(response.status).toBe(HTTP.OK)
     })
 
     it('No user found', async () => {
       const response = await request(app).get('/api/4000000')
 
-      expect(response.status).toBe(400)
+      expect(response.status).toBe(HTTP.BAD_REQUEST)
     })
   })
 
@@ -105,13 +96,13 @@ describe('User > UserController.js', () => {
 
       const response = await request(app).delete(`/api/${user.id}`)
 
-      expect(response.status).toBe(200)
+      expect(response.status).toBe(HTTP.OK)
     })
 
     it('No user found', async () => {
       const response = await request(app).delete('/api/0')
 
-      expect(response.status).toBe(400)
+      expect(response.status).toBe(HTTP.BAD_REQUEST)
     })
   })
 })

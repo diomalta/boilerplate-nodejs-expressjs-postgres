@@ -1,10 +1,17 @@
 const request = require('supertest')
 
 const app = require('../../src/app')
+
 const factory = require('../utils/factories')
 const truncate = require('../utils/truncate')
 
+const HTTP = require('../../src/constants/http')
+
 describe('Auth > AuthController.js', () => {
+  beforeAll(async () => {
+    await truncate()
+  })
+
   beforeEach(async () => {
     await truncate()
   })
@@ -21,7 +28,7 @@ describe('Auth > AuthController.js', () => {
         password: '123123'
       })
 
-    expect(response.status).toBe(201)
+    expect(response.status).toBe(HTTP.CREATED)
   })
 
   it('should not authenticate with invalid credentials', async () => {
@@ -36,7 +43,7 @@ describe('Auth > AuthController.js', () => {
         password: '123456'
       })
 
-    expect(response.status).toBe(401)
+    expect(response.status).toBe(HTTP.UNAUTHENTICATED)
   })
 
   it('user not found', async () => {
@@ -47,7 +54,7 @@ describe('Auth > AuthController.js', () => {
         password: '123456'
       })
 
-    expect(response.status).toBe(400)
+    expect(response.status).toBe(HTTP.BAD_REQUEST)
   })
 
   it('should return jwt token when authenticated', async () => {
