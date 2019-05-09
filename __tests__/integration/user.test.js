@@ -8,6 +8,10 @@ const truncate = require('../utils/truncate')
 const HTTP = require('../../src/constants/http')
 
 describe('User > UserController.js', () => {
+  beforeAll(async () => {
+    await truncate()
+  })
+
   beforeEach(async () => {
     await truncate()
   })

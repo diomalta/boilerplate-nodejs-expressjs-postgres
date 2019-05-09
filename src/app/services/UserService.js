@@ -1,4 +1,5 @@
 const { User } = require('../models')
+const Response = require('../../constants/response')
 
 class UserService {
   constructor () {
@@ -11,35 +12,25 @@ class UserService {
     if (!user) {
       return {
         user: await this.user.create({ ...body }),
-        status: 201,
-        describe: 'User registered with success'
+        ...Response.userCreated
       }
     }
 
-    return {
-      type: 'userFound',
-      status: 400,
-      describe: 'Already exist a user with email'
-    }
+    return Response.userFound
   }
 
   async update (body) {
     const user = await this.user.findByPk(body.id)
 
     if (!user) {
-      return {
-        type: 'userNotFound',
-        status: 400,
-        describe: 'No user found'
-      }
+      return Response.userNotFound
     }
 
     const userAtt = await user.update({ ...body })
 
     return {
       user: userAtt,
-      status: 200,
-      describe: 'User updated with success'
+      ...Response.userOk
     }
   }
 
@@ -51,17 +42,12 @@ class UserService {
     const user = await this.user.findByPk(id)
 
     if (!user) {
-      return {
-        type: 'userNotFound',
-        status: 400,
-        describe: 'No user found'
-      }
+      return Response.userNotFound
     }
 
     return {
       user,
-      status: 200,
-      describe: 'User successfully found'
+      ...Response.userOk
     }
   }
 
@@ -69,19 +55,12 @@ class UserService {
     const user = await this.user.findByPk(id)
 
     if (!user) {
-      return {
-        type: 'userNotFound',
-        status: 400,
-        describe: 'No user found'
-      }
+      return Response.userNotFound
     }
 
     await user.destroy()
 
-    return {
-      status: 200,
-      describe: 'User deleted with success'
-    }
+    return Response.userDeleted
   }
 }
 

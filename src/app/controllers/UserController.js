@@ -1,19 +1,21 @@
 const UserService = require('../services/UserService')
 const ErrorService = require('../services/ErrorService')
 
+const HTTP = require('../../constants/http')
+
 class UserController {
   async store (req, res, next) {
     try {
       const { body } = req
       const response = await UserService.store(body)
 
-      if (response.status !== 201) {
+      if (response.status !== HTTP.CREATED) {
         const e = new ErrorService(req, response)
         return next(e.get())
       }
 
       return res
-        .status(201)
+        .status(HTTP.CREATED)
         .json({ user: response.user, message: response.describe })
     } catch (err) {
       return next(err)
@@ -27,13 +29,13 @@ class UserController {
 
       const response = await UserService.update({ ...body, id })
 
-      if (response.status !== 200) {
+      if (response.status !== HTTP.OK) {
         const e = new ErrorService(req, response)
         return next(e.get())
       }
 
       return res
-        .status(response.status)
+        .status(HTTP.OK)
         .json({ user: response.user, message: response.describe })
     } catch (err) {
       return next(err)
@@ -46,7 +48,7 @@ class UserController {
 
       const response = await UserService.destroy(id)
 
-      if (response.status !== 200) {
+      if (response.status !== HTTP.OK) {
         const e = new ErrorService(req, response)
         return next(e.get())
       }
@@ -63,13 +65,13 @@ class UserController {
 
       const response = await UserService.get(id)
 
-      if (response.status !== 200) {
+      if (response.status !== HTTP.OK) {
         const e = new ErrorService(req, response)
         return next(e.get())
       }
 
       return res
-        .status(200)
+        .status(HTTP.OK)
         .json({ user: response.user, message: response.menssage })
     } catch (err) {
       return next(err)

@@ -11,5 +11,29 @@ module.exports = {
     type: 'incorretPassword',
     status: HTTP.UNAUTHENTICATED,
     describe: 'Incorrect password'
+  },
+
+  userCreated: {
+    type: 'userCreated',
+    status: HTTP.CREATED,
+    describe: 'User registered with success'
+  },
+
+  userFound: {
+    type: 'userFound',
+    status: HTTP.BAD_REQUEST,
+    describe: 'Already exist a user with email'
+  },
+
+  userOk: {
+    type: 'userOk',
+    status: HTTP.OK,
+    describe: 'User updated with success'
+  },
+
+  userDeleted: {
+    type: 'userDeleted',
+    status: HTTP.OK,
+    describe: 'User deleted with success'
   }
 }
