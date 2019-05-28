@@ -2,20 +2,10 @@ const faker = require('faker')
 const request = require('supertest')
 
 const app = require('../../src/app')
-const factory = require('../utils/factories')
-const truncate = require('../utils/truncate')
-
+const factory = require('../../src/utils/factories')
 const HTTP = require('../../src/constants/http')
 
 describe('User > UserController.js', () => {
-  beforeAll(async () => {
-    await truncate()
-  })
-
-  beforeEach(async () => {
-    await truncate()
-  })
-
   describe('Store', () => {
     it('User registered with success', async () => {
       const response = await request(app)

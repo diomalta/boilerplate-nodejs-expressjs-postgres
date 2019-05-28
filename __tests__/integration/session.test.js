@@ -1,23 +1,13 @@
 const request = require('supertest')
 
 const app = require('../../src/app')
-
-const factory = require('../utils/factories')
-const truncate = require('../utils/truncate')
-
+const factory = require('../../src/utils/factories')
 const HTTP = require('../../src/constants/http')
 
 describe('Auth > AuthController.js', () => {
-  beforeAll(async () => {
-    await truncate()
-  })
-
-  beforeEach(async () => {
-    await truncate()
-  })
-
   it('should authenticate with valid credentials', async () => {
     const user = await factory.create('User', {
+      email: 'teste@jest.com',
       password: '123123'
     })
 
@@ -58,17 +48,22 @@ describe('Auth > AuthController.js', () => {
   })
 
   it('should return jwt token when authenticated', async () => {
-    const user = await factory.create('User', {
-      password: '123123'
-    })
-
-    const response = await request(app)
-      .post('/api/signin')
-      .send({
-        email: user.email,
+    try {
+      const user = await factory.create('User', {
+        email: 'trycatch@life.com',
         password: '123123'
       })
 
-    expect(response.body).toHaveProperty('token')
+      const response = await request(app)
+        .post('/api/signin')
+        .send({
+          email: user.email,
+          password: '123123'
+        })
+
+      expect(response.body).toHaveProperty('token')
+    } catch (error) {
+      console.warn(error)
+    }
   })
 })

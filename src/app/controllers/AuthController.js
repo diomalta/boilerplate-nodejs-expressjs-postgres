@@ -14,8 +14,6 @@ class AuthController {
 
       return res.status(HTTP.CREATED).json({ ...response })
     } catch (err) {
-      console.warn(err)
-
       return next(err)
     }
   }
