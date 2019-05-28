@@ -1,5 +1,5 @@
 const { sequelize } = require('../../src/app/models')
-
+// TODO: Função com bugfix
 module.exports = () => {
   return Promise.all(
     Object.keys(sequelize.models).map(key => {
